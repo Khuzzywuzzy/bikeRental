@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #ABE7FF;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.feedback-form {
+    background: #499FFA;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    margin: 50px auto;
+}
+
+.feedback-form h2 {
+    color: black;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #FFB2D8;
+    color: black;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+	transition: 0.4s ease;
+}
+
+button:hover {
+    background-color: white;
+}
+
+/* Style for the home button */
+.home-button,
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    background-color: #FFB2D8;
+    color: black;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+	transition: 0.4s ease;
+}
+
+.home-button:hover,
+.back-button:hover {
+    background-color: white;
+    color: black;
+}

@@ -1,0 +1,31 @@
+<!–– Code author : Muhammad Asnawie ––>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <link rel="stylesheet" href="css/co1.css">
+    <title>BIKE RENTAL</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('contact_content.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('contact-content').innerHTML = data;
+                    // Modify the link dynamically
+                    document.getElementById('home-link').href = "menu.php";
+                });
+        });
+    </script>
+</head>
+<body>
+    <section class="contact">
+        <div id="contact-content">
+            <!-- Contact content will be dynamically loaded here -->
+        </div>
+    </section>
+</body>
+</html>

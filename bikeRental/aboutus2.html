@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIKE RENTAL</title>
+    <link rel="stylesheet" href="css/aboutus_css.css">
+    <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('aboutus_content.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('about-us-content').innerHTML = data;
+                });
+        });
+    </script>
+</head>
+<body>
+    <section>
+        <div class="image">
+            <img src="images/bike3.png" alt="Bike">
+        </div>
+        <div class="content">
+            <div id="about-us-content">
+            <!-- About Us content will be dynamically loaded here -->
+            </div>
+        <ul class="links">
+            <li><a href="menu.php">home</a></li>
+            <div class="vertical-line"></div>
+            <li><a href="contact2.html">contact</a></li>
+        </ul>
+    </div>
+    </section>
+</body>
+</html>
