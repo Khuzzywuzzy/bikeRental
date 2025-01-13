@@ -1,33 +1,32 @@
-name: Run Tests for Bike Rental
+name: Run PHPUnit Tests
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
 
-  workflow_dispatch:
-
 jobs:
-  tests:
+  phpunit:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
-      - name: Checkout
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      # Set up Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
 
-      # Navigate to the correct directory and install dependencies
-      - name: Install Dependencies
-        working-directory: ./bikeRental # Adjust the path to your subdirectory
-        run: npm install --save-dev supertest
+    - name: Install dependencies
+      run: |
+        sudo apt-get install unzip
+        curl -sS https://getcomposer.org/installer | php
+        php composer.phar install
 
-      # Run tests
-      - name: Run Tests
-        working-directory: ./bikeRental # Adjust the path to your subdirectory
-        run: npm test
+    - name: Run PHPUnit tests
+      run: |
+        ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/AuthTest
