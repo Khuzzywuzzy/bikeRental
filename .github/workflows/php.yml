@@ -1,0 +1,51 @@
+name: Run Katalon Login Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  katalon-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Install Java (Required for Katalon Runtime Engine)
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+
+    # Install Katalon dependencies
+    - name: Install Katalon Runtime Engine
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
+        wget https://github.com/katalon-studio/katalon-release/releases/download/v8.6.0/Katalon_Studio_Engine_Linux_64-8.6.0.tar.gz
+        tar -xzf Katalon_Studio_Engine_Linux_64-8.6.0.tar.gz
+        export KATALON_CMD=$(pwd)/Katalon_Studio_Engine_Linux_64-8.6.0/katalonc
+
+    # Run Katalon Test (Login Test)
+    - name: Run Login Test Case
+      run: |
+        $KATALON_CMD -projectPath=$(pwd)/YourKatalonProject.prj \
+                     -testSuitePath="Test Suites/LoginSuite" \
+                     -browserType="Chrome (headless)" \
+                     -retry=0 \
+                     -executionProfile="default" \
+                     -reportFolder="Reports" \
+                     -apiKey=$KATALON_API_KEY
+      env:
+        KATALON_API_KEY: ${{ secrets.KATALON_API_KEY }}
+
+    # Upload Test Results
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: Reports/
