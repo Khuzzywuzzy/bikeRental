@@ -1,26 +1,39 @@
-name: Run tests
+name: PHP
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
-    branches: ['master']
+    branches: [ "main" ]
 
-  workflow_dispatch:
+permissions:
+  contents: read
 
 jobs:
-  tests:
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.18
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
 
-      - name: Install Dependencies
-        run: npm install
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
 
-      - name: Run tests
-        run: npm test
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+    # Docs: https://getcomposer.org/doc/articles/scripts.md
+
+    # - name: Run test suite
+    #   run: composer run-script test
